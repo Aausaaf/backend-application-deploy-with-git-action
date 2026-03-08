@@ -13,9 +13,9 @@ jobs:
             - name: Deploy via SSH
               uses: appleboy/ssh-action@master
               with:
-                  host: ${{ secrets.VM_HOST }}
-                  username: ${{ secrets.VM_USER }}
-                  key: ${{ secrets.VM_SSH_KEY }}
+                  host: ${{ secrets.SSH_HOST }}
+                  username: ${{ secrets.SSH_USER }}
+                  key: ${{ secrets.SSH_KEY }}
                   script: |
                       cd /var/www/upfc-production/backend-application-deploy-with-git-action
                       git pull origin main
