@@ -1,0 +1,22 @@
+name: Deploy NodeJs Application to VM
+on:
+    push:
+        branches:
+            - main
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Deploy via SSH
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.VM_HOST }}
+                  username: ${{ secrets.VM_USER }}
+                  key: ${{ secrets.VM_SSH_KEY }}
+                  script: |
+                      cd /var/www/upfc-production/backend-application-deploy-with-git-action
+                      git pull origin main
+                      docker compose up --build -d
